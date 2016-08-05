@@ -12,7 +12,7 @@ $ar = [
  */
 function calc(array $ar)
 {
-    if (count($ar) == 0) {
+    if (count($ar) <= 1) {
         return 0;
     }
     return $ar[array_keys($ar)[0]];
@@ -32,5 +32,5 @@ function assertCalc($expected, array $ar) {
 assertCalc(0, []);
 assertCalc(0, [0]);
 assertCalc(0, [1=>0, 0, 0]);
-
-
+assertCalc(0, [100]);
+//assertCalc(100, [1=>100]);
