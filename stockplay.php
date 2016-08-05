@@ -12,20 +12,11 @@ $ar = [
  */
 function calc(array $ar)
 {
-    if (count($ar) <= 1) {
-        return 0;
-    }
-    $arSortedAsc = $ar;
-    asort($arSortedAsc);
-    $arSortedDesc = $ar;
-    arsort($arSortedDesc);
     $profit = 0;
-    foreach ($arSortedAsc as $i=>$minVal) {
-        foreach ($arSortedDesc as $j=>$maxVal) {
-            if ($j > $i) {
-                if ($maxVal - $minVal > $profit) {
-                    $profit = $maxVal - $minVal;
-                }
+    foreach ($ar as $i=>$minVal) {
+        foreach ($ar as $j=>$maxVal) {
+            if (($j > $i) && ($maxVal - $minVal > $profit)) {
+                $profit = $maxVal - $minVal;
             }
         }
     }
@@ -55,3 +46,4 @@ assertCalc(0, [120, 100, 90, 90]);
 assertCalc(10, [120, 100, 90, 90, 100]);
 assertCalc(10, [1=>120, 100, 90, 90, 100]);
 assertCalc(10, [120, 100, 90, 90, 100, 80]);
+assertCalc(35, $ar);
