@@ -16,10 +16,15 @@ function calc(array $ar)
         return 0;
     }
     $minValKeys = array_keys($ar, min($ar));
-    $maxValKeys = array_keys($ar, max($ar));
-    if (max($maxValKeys) > min($minValKeys)) {
-        return $ar[max($maxValKeys)] - $ar[min($minValKeys)];
+    $minValKey = min($minValKeys);
+    $arSortedDesc = $ar;
+    arsort($arSortedDesc);
+    foreach ($arSortedDesc as $i=>$val) {
+        if ($i > $minValKey) {
+            return $val - $ar[$minValKey];
+        }
     }
+
     return 0;
 }
 
@@ -41,3 +46,5 @@ assertCalc(0, [100]);
 assertCalc(10, [90, 100]);
 assertCalc(30, [90, 120, 100]);
 assertCalc(0, [120, 100, 90]);
+assertCalc(0, [120, 100, 90, 90]);
+assertCalc(10, [120, 100, 90, 90, 100]);
