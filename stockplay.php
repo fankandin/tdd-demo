@@ -15,7 +15,9 @@ function calc(array $ar)
     if (count($ar) <= 1) {
         return 0;
     }
-    return $ar[array_keys($ar)[0]];
+    $min = min($ar);
+    $max = max($ar);
+    return ($max - $min);
 }
 
 function assertCalc($expected, array $ar) {
@@ -33,4 +35,5 @@ assertCalc(0, []);
 assertCalc(0, [0]);
 assertCalc(0, [1=>0, 0, 0]);
 assertCalc(0, [100]);
-//assertCalc(100, [1=>100]);
+assertCalc(10, [90, 100]);
+
