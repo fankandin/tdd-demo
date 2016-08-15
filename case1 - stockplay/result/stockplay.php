@@ -1,15 +1,6 @@
 <?php
-$ar = [
-    1 => 110,
-    2 => 90,
-    3 => 95,
-    4 => 125,
-    5 => 120,
-    6 => 100,
-];
-/**
- *
- */
+include __DIR__ . '/../stockplay-assert.php';
+
 function calc(array $ar)
 {
     $profit = 0;
@@ -24,26 +15,39 @@ function calc(array $ar)
     return $profit;
 }
 
-function assertCalc($expected, array $ar) {
-    $result = calc($ar);
-    if ($expected === $result) {
-        echo 'SUCCESS';
-    } else {
-        echo "FAIL. Expected: {$expected}, returned: ";
-        var_dump($result);
-    }
-    echo "\n";
-}
-
+// 1. Empty array
 assertCalc(0, []);
+
+// 2. The only element in the array, zero
 assertCalc(0, [0]);
+
+// 3. Several elements in the array, zeros
 assertCalc(0, [1=>0, 0, 0]);
+
+// 4. The only element in the array, non-zero
 assertCalc(0, [100]);
+
+// 5. Two non-zero elements. Counting on 1-element array doesn't work anymore
 assertCalc(10, [90, 100]);
+
+// 6. Earn the same, but do not buy on the wrong price 100
 assertCalc(30, [90, 120, 100]);
+
+// 7. Nothing to earn
 assertCalc(0, [120, 100, 90]);
+
+// 8. Nothing to earn, there are two minimums
 assertCalc(0, [120, 100, 90, 90]);
+
+// 9. Real case
 assertCalc(10, [120, 100, 90, 90, 100]);
 assertCalc(10, [1=>120, 100, 90, 90, 100]);
 assertCalc(10, [120, 100, 90, 90, 100, 80]);
-assertCalc(35, $ar);
+assertCalc(35, [
+	1 => 110,
+	2 => 90,
+	3 => 95,
+	4 => 125,
+	5 => 120,
+	6 => 100,
+]);
